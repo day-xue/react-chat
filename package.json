@@ -17,14 +17,17 @@
     "lodash-es": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "remarkable": "^2.0.1",
     "sass-loader": "^13.2.1",
     "zustand": "^4.3.6"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.5.0",
     "@commitlint/config-conventional": "^17.4.4",
+    "@types/lodash-es": "^4.17.7",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@types/remarkable": "^2.0.3",
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
     "@vitejs/plugin-react": "^3.1.0",
