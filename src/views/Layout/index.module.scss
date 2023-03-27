@@ -1,0 +1,12 @@
+.layout__wrapper {
+  height: 100vh;
+  padding: 0;
+  background-color: rgb(231, 235, 240);
+
+  .bottom__wrapper {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
