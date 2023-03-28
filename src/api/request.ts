@@ -13,6 +13,4 @@ instance$1.setInterceptorsRes(res => {
   return res.data
 })
 
-export const defaultInstance = instance$1.instance
-
-export * from "axios"
+export const defaultInstance = instance$1.getInstance()

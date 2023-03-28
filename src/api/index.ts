@@ -1,4 +1,5 @@
-import { defaultInstance, type AxiosProgressEvent } from "./request"
+import { type AxiosProgressEvent } from "axios"
+import { defaultInstance } from "./request"
 type FetchChatOption = {
   question: string
   parentMessageId?: string
@@ -38,3 +39,4 @@ export const register = (payload: {
     },
   })
 }
+export * from "axios"

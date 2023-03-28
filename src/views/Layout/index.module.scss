@@ -8,5 +8,22 @@
     bottom: 0;
     left: 0;
     right: 0;
+  padding: 0;
+  background-color: rgb(231, 235, 240);
+  position: relative;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  //background-color: #1e1e1e;
+  :global {
+    .content {
+      flex: 1;
+      width: 100%;
+    }
+    .bottom__wrapper {
+      position: sticky;
+      bottom: 0;
+      width: 100%;
+    }
   }
 }

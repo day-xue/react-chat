@@ -30,8 +30,10 @@ const Layout: FC = () => {
         disableGutters
         maxWidth="sm"
         sx={{ pb: 7 }}>
-        <Outlet></Outlet>
-        <Paper elevation={3} className={styles.bottom__wrapper}>
+        <div className="content">
+          <Outlet></Outlet>
+        </div>
+        <Paper elevation={3} className={"bottom__wrapper"}>
           <BottomNavigation
             showLabels
             value={nav}

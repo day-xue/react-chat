@@ -7,7 +7,7 @@ import axios, {
 } from "axios"
 
 export class Instance {
-  instance: AxiosInstance
+  private instance: AxiosInstance
   constructor(options?: CreateAxiosDefaults) {
     this.instance = axios.create(options)
   }
@@ -22,5 +22,8 @@ export class Instance {
     useCB: Parameters<AxiosInterceptorManager<AxiosResponse>["use"]>[0]
   ) => {
     this.instance.interceptors.response.use(useCB)
+  }
+  getInstance = () => {
+    return this.instance
   }
 }
