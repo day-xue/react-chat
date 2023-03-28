@@ -1,19 +1,13 @@
 .layout__wrapper {
   height: 100vh;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px,
-    rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;
-
-  .bottom__wrapper {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
   padding: 0;
   background-color: rgb(231, 235, 240);
   position: relative;
   overflow: auto;
   display: flex;
   flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px,
+    rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;
   //background-color: #1e1e1e;
   :global {
     .content {
