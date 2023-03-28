@@ -16,3 +16,25 @@ export const fetchChat = (option: FetchChatOption) => {
     onDownloadProgress: onDownloadProgress,
   })
 }
+
+export const login = (payload: { username: string; password: string }) => {
+  return defaultInstance({
+    url: "https://cleqy3.laf.dev/login",
+    data: {
+      ...payload,
+    },
+  })
+}
+
+export const register = (payload: {
+  username: string
+  password: string
+  code: string
+}) => {
+  return defaultInstance({
+    url: "https://cleqy3.laf.dev/register",
+    data: {
+      ...payload,
+    },
+  })
+}

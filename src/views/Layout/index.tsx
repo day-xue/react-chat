@@ -25,9 +25,12 @@ const Layout: FC = () => {
 
   return (
     <>
-      <Container className={styles.layout__wrapper}>
+      <Container
+        className={styles.layout__wrapper}
+        disableGutters
+        maxWidth="sm"
+        sx={{ pb: 7 }}>
         <Outlet></Outlet>
-
         <Paper elevation={3} className={styles.bottom__wrapper}>
           <BottomNavigation
             showLabels
