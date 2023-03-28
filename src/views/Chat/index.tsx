@@ -1,26 +1,10 @@
 import { Search } from "@mui/icons-material"
 import { Box, IconButton, TextField } from "@mui/material"
-import axios, { AxiosProgressEvent } from "axios"
+import { AxiosProgressEvent } from "axios"
 import { debounce } from "lodash-es"
-import React, { FC, startTransition, useRef, useState } from "react"
+import { FC, startTransition, useRef, useState } from "react"
+import { fetchChat } from "../../api"
 import OmsSyntaxHighlight from "../../components/OmsSyntaxHighlight"
-type FetchChatOption = {
-  question: string
-  parentMessageId?: string
-  onDownloadProgress: (progressEvent: AxiosProgressEvent) => void
-}
-
-const fetchChat = (option: FetchChatOption) => {
-  axios.post(
-    "https://cleqy3.laf.dev/chat",
-    {
-      question: option.question,
-    },
-    {
-      onDownloadProgress: option.onDownloadProgress,
-    }
-  )
-}
 const Chat: FC = () => {
   const [result, setResult] = useState("")
   const questionRef = useRef<HTMLInputElement | null>(null)
@@ -47,7 +31,6 @@ const Chat: FC = () => {
     <div style={{ overflow: "auto", paddingBottom: "50px" }}>
       <Box sx={{ display: "flex", alignItems: "flex-end" }}>
         <TextField
-          //id="standard-basic"
           label="输入您的问题..."
           variant="standard"
           inputRef={questionRef}
@@ -60,7 +43,7 @@ const Chat: FC = () => {
           <Search sx={{ fontSize: 25 }} />
         </IconButton>
       </Box>
-      <OmsSyntaxHighlight darkMode="dark" textContent={result} />
+      <OmsSyntaxHighlight darkMode="light" textContent={result} />
     </div>
   )
 }

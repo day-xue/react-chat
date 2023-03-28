@@ -1,8 +1,8 @@
 import ReactMarkdown from "react-markdown"
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter"
 import {
-  darcula,
-  vscDarkPlus,
+  oneDark,
+  oneLight,
 } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 // darcula webstorm
@@ -14,8 +14,8 @@ type tProps = {
 }
 
 const them = {
-  dark: vscDarkPlus,
-  light: darcula,
+  dark: oneDark,
+  light: oneLight,
 }
 
 const OmsViewMarkdown = (props: tProps) => {
