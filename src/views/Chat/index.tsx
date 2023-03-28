@@ -1,10 +1,10 @@
+import { fetchChat } from "@/api"
+import OmsSyntaxHighlight from "@/components/OmsSyntaxHighlight"
 import { Search } from "@mui/icons-material"
 import { Box, IconButton, TextField } from "@mui/material"
 import { AxiosProgressEvent } from "axios"
 import { debounce } from "lodash-es"
 import { FC, startTransition, useRef, useState } from "react"
-import { fetchChat } from "../../api"
-import OmsSyntaxHighlight from "../../components/OmsSyntaxHighlight"
 const Chat: FC = () => {
   const [result, setResult] = useState("")
   const questionRef = useRef<HTMLInputElement | null>(null)

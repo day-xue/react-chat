@@ -5,12 +5,9 @@ import {
   oneLight,
 } from "react-syntax-highlighter/dist/esm/styles/prism"
 
-// darcula webstorm
-// vscDarkPlus vscode暗色主题
-
 type tProps = {
   textContent: string
-  darkMode: "dark" | "light" // markdown文本
+  darkMode: "dark" | "light"
 }
 
 const them = {

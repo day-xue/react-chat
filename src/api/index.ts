@@ -9,6 +9,7 @@ export const fetchChat = (option: FetchChatOption) => {
   const { onDownloadProgress, ...restOption } = option
   return defaultInstance({
     url: "https://cleqy3.laf.dev/chat",
+    method: "POST",
     data: {
       ...restOption,
     },
