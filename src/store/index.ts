@@ -5,7 +5,10 @@ const initState = {
 }
 type ChartType = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  content: any
+  uuid: string
+  question?: any
+  answer?: any
+  type: "L" | "R"
   timeStamp: number
 }
 interface StoreType {

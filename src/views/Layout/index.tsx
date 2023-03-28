@@ -1,13 +1,13 @@
-import { FC, useEffect, useState } from "react"
+import AccountCircleIcon from "@mui/icons-material/AccountCircle"
+import ChatIcon from "@mui/icons-material/Chat"
 import {
-  Container,
   BottomNavigation,
   BottomNavigationAction,
+  Container,
   Paper,
 } from "@mui/material"
+import { FC, useEffect, useState } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
-import ChatIcon from "@mui/icons-material/Chat"
-import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import styles from "./index.module.scss"
 
 const RouterMap = {
