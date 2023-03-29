@@ -1,5 +1,5 @@
 import { Search } from "@mui/icons-material"
-import { FormControl, IconButton, InputLabel, Input } from "@mui/material"
+import { FormControl, IconButton, Input, InputLabel } from "@mui/material"
 import React, { FC, memo, useRef } from "react"
 type TextSendProps = {
   onSearch: (question: string) => void

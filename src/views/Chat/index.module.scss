@@ -12,9 +12,9 @@
       }
     }
     .text-send {
+      padding: 0 10px 10px 10px;
       width: 100%;
       position: sticky;
-      bottom: 0;
       display: flex;
       .text-form {
         width: 100%;
@@ -23,6 +23,9 @@
       .search-icon {
         padding: 0;
         align-items: flex-end;
+        svg {
+          font-size: 40px;
+        }
       }
     }
   }

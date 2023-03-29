@@ -1,4 +1,4 @@
-import { type CreateAxiosDefaults, AxiosRequestConfig } from "axios"
+import { AxiosRequestConfig, type CreateAxiosDefaults } from "axios"
 import { Instance } from "./axiosClass"
 
 const defaultOption: CreateAxiosDefaults = {

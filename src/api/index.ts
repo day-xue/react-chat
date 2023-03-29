@@ -1,6 +1,6 @@
+import { getToken } from "@/utils/getToken"
 import { type AxiosProgressEvent } from "axios"
 import { defaultInstance, fetchApi } from "./request"
-import { getToken } from "@/utils/getToken"
 
 type FetchChatOption = {
   question: string
