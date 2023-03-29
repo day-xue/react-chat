@@ -1,5 +1,5 @@
 import { Search } from "@mui/icons-material"
-import { IconButton, TextField } from "@mui/material"
+import { FormControl, IconButton, InputLabel, Input } from "@mui/material"
 import React, { FC, memo, useRef } from "react"
 type TextSendProps = {
   onSearch: (question: string) => void
@@ -14,19 +14,23 @@ const TextSend: FC<TextSendProps> = props => {
   }
   return (
     <div className="text-send">
-      <TextField
-        className="text-area"
-        label="输入您的问题..."
-        variant="standard"
-        inputRef={questionRef}
-      />
-      <IconButton
-        className="search-icon"
-        onClick={handleSearch}
-        type="button"
-        aria-label="search">
-        <Search sx={{ fontSize: 25 }} />
-      </IconButton>
+      <FormControl className="text-form" variant="standard">
+        <InputLabel htmlFor="outlined-question">输入问题</InputLabel>
+        <Input
+          id="outlined-question"
+          inputRef={questionRef}
+          className="text-area"
+          endAdornment={
+            <IconButton
+              className="search-icon"
+              onClick={handleSearch}
+              type="button"
+              aria-label="search">
+              <Search sx={{ fontSize: 25 }} />
+            </IconButton>
+          }
+        />
+      </FormControl>
     </div>
   )
 }

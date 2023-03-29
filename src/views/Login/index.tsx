@@ -12,18 +12,20 @@ import styles from "./index.module.scss"
 import { useNavigate } from "react-router-dom"
 import { loginApi, registerApi } from "@/api"
 import toast from "@/components/toast"
+import { useStore } from "@/store"
 type UserForm = {
   username: string
   password: string
-  code: string
+  activeCode: string
 }
 
 const Login: FC = props => {
   const [userForm, setUserForm] = useState<UserForm>({
     username: "",
     password: "",
-    code: "",
+    activeCode: "",
   })
+  const { setToken, setUserInfo } = useStore()
   const [formType, setFormType] = useState<"login" | "register">("login")
   const navigate = useNavigate()
   const setUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,10 +43,10 @@ const Login: FC = props => {
     })
   }
   const setCode = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const code = event.target.value
+    const activeCode = event.target.value
     setUserForm({
       ...userForm,
-      code,
+      activeCode,
     })
   }
   const renderFooter = () => {
@@ -83,25 +85,31 @@ const Login: FC = props => {
         username,
         password,
       })
-        .then(() => {
-          navigate("/user")
+        .then(({ token, username, avatar }) => {
+          setToken(token)
+          setUserInfo({
+            username,
+            avatar,
+          })
           toast("登录成功")
+          navigate("/user")
         })
-        .catch((err: any) => {
-          console.error(err.msg)
+        .catch((err: Error) => {
+          toast(err.message)
         })
     } else {
-      const { username, password, code } = userForm
+      const { username, password, activeCode } = userForm
       registerApi({
         username,
         password,
-        code,
+        activeCode,
       })
         .then(() => {
+          toast("注册成功")
           setFormType("login")
         })
-        .catch((err: any) => {
-          console.error(err.msg)
+        .catch((err: Error) => {
+          toast(err.message)
         })
     }
   }
@@ -138,10 +146,10 @@ const Login: FC = props => {
           <FormControl fullWidth margin="normal">
             <FormLabel>激活码</FormLabel>
             <Input
-              name="code"
-              type="code"
+              name="activeCode"
+              type="activeCode"
               placeholder="123456"
-              value={userForm?.code}
+              value={userForm?.activeCode}
               onChange={setCode}
             />
           </FormControl>

@@ -1,5 +1,7 @@
 import { type AxiosProgressEvent } from "axios"
-import { defaultInstance } from "./request"
+import { defaultInstance, fetchApi } from "./request"
+import { getToken } from "@/utils/getToken"
+
 type FetchChatOption = {
   question: string
   parentMessageId?: string
@@ -8,18 +10,29 @@ type FetchChatOption = {
 
 export const fetchChat = (option: FetchChatOption) => {
   const { onDownloadProgress, ...restOption } = option
+
   return defaultInstance({
     url: "/chat",
     method: "POST",
     data: {
       ...restOption,
     },
+    headers: {
+      Authorization: getToken(),
+    },
     onDownloadProgress: onDownloadProgress,
   })
 }
 
-export const login = (payload: { username: string; password: string }) => {
-  return defaultInstance({
+export const loginApi = (payload: { username: string; password: string }) => {
+  return fetchApi<
+    typeof payload,
+    {
+      username: string
+      token: string
+      avatar: string
+    }
+  >({
     url: "/login",
     method: "POST",
     data: {
@@ -31,9 +44,9 @@ export const login = (payload: { username: string; password: string }) => {
 export const registerApi = (payload: {
   username: string
   password: string
-  code: string
+  activeCode: string
 }) => {
-  return defaultInstance({
+  return fetchApi<typeof payload, undefined>({
     url: "/register",
     method: "POST",
     data: {

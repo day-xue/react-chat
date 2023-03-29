@@ -1,6 +1,5 @@
-import { useRoutes } from "react-router-dom"
+import { HashRouter, useRoutes } from "react-router-dom"
 import Chat from "@/views/Chat"
-import { BrowserRouter } from "react-router-dom"
 import Layout from "@/views/Layout"
 import User from "@/views/User"
 import Login from "@/views/Login"
@@ -27,9 +26,9 @@ export const routes = [
 ]
 const Routes = () => useRoutes(routes)
 const Router = () => (
-  <BrowserRouter>
+  <HashRouter>
     <Routes />
-  </BrowserRouter>
+  </HashRouter>
 )
 
 export default Router

@@ -16,8 +16,9 @@
       position: sticky;
       bottom: 0;
       display: flex;
-      .text-area {
-        flex: 1;
+      .text-form {
+        width: 100%;
+        margin: 0px 10px 5px;
       }
       .search-icon {
         padding: 0;
