@@ -10,6 +10,8 @@ import {
 import { FC, useState } from "react"
 import styles from "./index.module.scss"
 import { useNavigate } from "react-router-dom"
+import { loginApi, registerApi } from "@/api"
+import toast from "@/components/toast"
 type UserForm = {
   username: string
   password: string
@@ -77,40 +79,29 @@ const Login: FC = props => {
   const handleClick = () => {
     if (formType === "login") {
       const { username, password } = userForm
-      fetch("https://cleqy3.laf.dev/login", {
-        method: "post",
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-        headers: { "Content-Type": "application/json" },
+      loginApi({
+        username,
+        password,
       })
-        .then(res => res.json())
-        .then(res => {
-          if (res?.success) {
-            navigate("/user")
-            return
-          }
-          console.error(res.msg)
+        .then(() => {
+          navigate("/user")
+          toast("登录成功")
+        })
+        .catch((err: any) => {
+          console.error(err.msg)
         })
     } else {
       const { username, password, code } = userForm
-      fetch("https://cleqy3.laf.dev/register", {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username,
-          password,
-          code,
-        }),
+      registerApi({
+        username,
+        password,
+        code,
       })
-        .then(res => res.json())
-        .then(res => {
-          if (res?.success) {
-            setFormType("login")
-            return
-          }
-          console.error(res.msg)
+        .then(() => {
+          setFormType("login")
+        })
+        .catch((err: any) => {
+          console.error(err.msg)
         })
     }
   }

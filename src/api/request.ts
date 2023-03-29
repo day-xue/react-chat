@@ -1,4 +1,4 @@
-import { type CreateAxiosDefaults } from "axios"
+import { type CreateAxiosDefaults, AxiosRequestConfig } from "axios"
 import { Instance } from "./axiosClass"
 const defaultOption: CreateAxiosDefaults = {
   baseURL: "",
@@ -14,3 +14,25 @@ instance$1.setInterceptorsRes(res => {
 })
 
 export const defaultInstance = instance$1.getInstance()
+
+export const defaultInstancePms = <REQ, RES>(
+  options: AxiosRequestConfig<REQ>
+): Promise<{
+  success: boolean
+  msg: string
+  data: RES
+}> => {
+  return new Promise((resolve, reject) => {
+    defaultInstance(options)
+      .then(({ data }) => {
+        if (data?.code) {
+          resolve(data)
+        } else {
+          reject(data)
+        }
+      })
+      .catch(err => {
+        reject({ msg: err })
+      })
+  })
+}

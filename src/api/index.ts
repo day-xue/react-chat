@@ -1,5 +1,5 @@
 import { type AxiosProgressEvent } from "axios"
-import { defaultInstance } from "./request"
+import { defaultInstance, defaultInstancePms } from "./request"
 type FetchChatOption = {
   question: string
   parentMessageId?: string
@@ -18,21 +18,22 @@ export const fetchChat = (option: FetchChatOption) => {
   })
 }
 
-export const login = (payload: { username: string; password: string }) => {
-  return defaultInstance({
+export const loginApi = (payload: { username: string; password: string }) => {
+  return defaultInstancePms<typeof payload, undefined>({
     url: "https://cleqy3.laf.dev/login",
+    method: "POST",
     data: {
       ...payload,
     },
   })
 }
 
-export const register = (payload: {
+export const registerApi = (payload: {
   username: string
   password: string
   code: string
 }) => {
-  return defaultInstance({
+  return defaultInstancePms<typeof payload, undefined>({
     url: "https://cleqy3.laf.dev/register",
     data: {
       ...payload,
