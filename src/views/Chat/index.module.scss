@@ -7,10 +7,46 @@
   :global {
     .chatList {
       flex: 1;
-      .chatItem {
-        width: 100%;
+      .avatar__wrapper {
+        min-width: auto;
+      }
+      .chat__right {
+        flex-direction: row-reverse;
+        .timeStamp {
+          text-align: right;
+        }
+        .message {
+          background-color: rgb(210, 249, 209);
+        }
+      }
+      .chat__left {
+        flex-direction: row;
+        .timeStamp {
+          text-align: left;
+        }
+        .message {
+          background-color: rgb(244, 246, 248);
+        }
       }
     }
+
+    .chat__info {
+      .timeStamp {
+        font-size: 12px;
+        line-height: 12px;
+        color: rgb(180 187 196);
+      }
+      .message {
+        border-radius: 6px;
+        padding: 8px;
+        max-width: 60vw;
+      }
+      .chatItem {
+        width: 100%;
+        word-break: break-all;
+      }
+    }
+
     .text-send {
       padding: 0 10px 10px 10px;
       width: 100%;

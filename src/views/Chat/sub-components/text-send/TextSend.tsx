@@ -26,7 +26,7 @@ const TextSend: FC<TextSendProps> = props => {
               onClick={handleSearch}
               type="button"
               aria-label="search">
-              <Search sx={{ fontSize: 25 }} />
+              <Search />
             </IconButton>
           }
         />
