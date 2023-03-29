@@ -1,8 +1,9 @@
 import { type CreateAxiosDefaults, AxiosRequestConfig } from "axios"
 import { Instance } from "./axiosClass"
 const defaultOption: CreateAxiosDefaults = {
-  baseURL: "",
+  baseURL: "https://cleqy3.laf.dev",
   timeout: 1000 * 60 * 2,
+  withCredentials: true,
 }
 
 const instance$1 = new Instance(defaultOption)
