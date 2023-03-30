@@ -28,7 +28,7 @@ const TextSend: FC = () => {
   const [question, setQuestion] = useState("")
   const { setChat, currentChatId, updateCurrentChatIdAnswer } = useStore()
 
-  const chatOptions = useRef<ResChunkType | null>(null)
+  const oldChat = useRef<{ [currentId: string]: ResChunkType }>({})
   const onDownloadProgress = (e: AxiosProgressEvent) => {
     const xhr = e.event.target
     const { responseText } = xhr
@@ -37,6 +37,7 @@ const TextSend: FC = () => {
     if (lastIndex !== -1) chunk = responseText.substring(lastIndex)
     const data = JSON.parse(chunk) as ResChunkType
     console.log(data)
+    oldChat.current![currentChatId] = data
     updateCurrentChatIdAnswer(data.text)
   }
   const handleSearch = debounce(() => {
@@ -52,19 +53,10 @@ const TextSend: FC = () => {
     fetchChat({
       question,
       onDownloadProgress,
-      parentMessageId: chatOptions.current?.id,
+      parentMessageId: oldChat.current?.[currentChatId]?.id,
+      chatId: currentChatId,
     }).then(() => {
       console.log("ok")
-      /* const { id, parentMessageId, text } = chatOptions.current!
-      console.log(chatOptions.current)
-      setChat(currentChatId, {
-        id,
-        parentMessageId,
-        question,
-        answer: text,
-        type: "L",
-        timeStamp: Date.now(),
-      }) */
     })
   }, 1000)
 

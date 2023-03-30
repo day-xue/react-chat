@@ -1,22 +1,23 @@
-import { FC, MouseEvent, useState } from "react"
+import { useStore } from "@/store"
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined"
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded"
 import {
   AppBar,
   Avatar,
   Box,
   Button,
-  Toolbar,
   Input,
   Popover,
+  Toolbar,
   Typography,
 } from "@mui/material"
-import CheckRoundedIcon from "@mui/icons-material/CheckRounded"
-import { useStore } from "@/store"
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined"
+import { FC, MouseEvent, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 const TopBar: FC = () => {
   const {
     userInfo: { avatar, username },
+    setCurrentChatId,
   } = useStore()
 
   const navigate = useNavigate()

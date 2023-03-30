@@ -24,7 +24,7 @@ const ChatList: FC = () => {
             className={i.type === "R" ? "chat__right" : "chat__left"}
             key={i.id}>
             <ListItemAvatar className="avatar__wrapper">
-              {i.type === "L" ? (
+              {i.type === "R" ? (
                 <Avatar
                   className="avatar"
                   sx={{
