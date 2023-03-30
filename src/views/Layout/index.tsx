@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { Outlet } from "react-router-dom"
-import TopBar from "./components/top-bar"
+import TopBar from "./components/TopBar"
 import styles from "./index.module.scss"
 
 const Layout: FC = () => {
