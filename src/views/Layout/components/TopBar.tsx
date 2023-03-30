@@ -63,10 +63,9 @@ const TopBar: FC = () => {
 
   const handleAdd = () => {
     const chatId = `_chat_${nanoid(5)}`
-    const len = chatMapKeys!.length
     const newItem = {
       key: chatId,
-      label: `chat_${len}`,
+      label: chatId,
       children: null,
     }
     chatMapKeys!.push(newItem)
@@ -79,8 +78,12 @@ const TopBar: FC = () => {
     const lastIndex = chatMapKeys!.findIndex(i => i.key === targetKey) - 1
     const newChatItems = chatMapKeys!.filter(i => i.key !== targetKey)
     setChatMapKeys(newChatItems)
-    if (targetKey == activeKey && lastIndex >= 0)
-      setActiveKey(newChatItems[lastIndex].key)
+    let newActiveKey: TargetKey = "_chat_default"
+    if (targetKey == activeKey && lastIndex >= 0) {
+      newActiveKey = newChatItems[lastIndex].key
+    }
+    setActiveKey(newActiveKey)
+    setCurrentChatId(newActiveKey)
   }
 
   const handleActive = (key: string) => {

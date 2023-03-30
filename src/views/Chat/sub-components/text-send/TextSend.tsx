@@ -1,10 +1,10 @@
 import { fetchChat, type AxiosProgressEvent } from "@/api"
 import { useStore } from "@/store"
+import { Input, message } from "antd"
 import { debounce } from "lodash-es"
 import { nanoid } from "nanoid"
-import { memo, useRef, useState, type FC } from "react"
+import { memo, useEffect, useRef, useState, type FC } from "react"
 import { flushSync } from "react-dom"
-import { Input, message } from "antd"
 
 const { Search } = Input
 type ResChunkType = {
@@ -30,7 +30,7 @@ const TextSend: FC = () => {
   const { setChat, currentChatId, updateCurrentChatIdAnswer } = useStore()
   const [loading, setLoading] = useState(false)
   const oldChat = useRef<{ [currentId: string]: ResChunkType }>({})
-
+  const scrollRef = useRef<any>()
   const onDownloadProgress = (e: AxiosProgressEvent) => {
     const xhr = e.event.target
     const { responseText } = xhr
@@ -42,8 +42,11 @@ const TextSend: FC = () => {
     console.log("chunkData", data)
     oldChat.current![currentChatId] = data
     updateCurrentChatIdAnswer(data.text)
+    scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
   }
-
+  useEffect(() => {
+    scrollRef.current = document.querySelector(".content .chatList")
+  }, [])
   const handleSearch = debounce(() => {
     setLoading(true)
     flushSync(() => {
