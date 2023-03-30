@@ -1,7 +1,6 @@
 import { fetchChat, type AxiosProgressEvent } from "@/api"
 import { useStore } from "@/store"
 import { Input, message } from "antd"
-import { debounce } from "lodash-es"
 import { nanoid } from "nanoid"
 import { memo, useEffect, useRef, useState, type FC } from "react"
 import { flushSync } from "react-dom"
@@ -39,15 +38,16 @@ const TextSend: FC = () => {
     if (lastIndex !== -1) chunk = responseText.substring(lastIndex)
     const data = JSON.parse(chunk) as ResChunkType
     // TODO: for debug
-    console.log("chunkData", data)
+    //console.log("chunkData", data)
     oldChat.current![currentChatId] = data
     updateCurrentChatIdAnswer(data.text)
-    scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
+    const scrollHeight = scrollRef.current?.scrollHeight
+    scrollRef.current?.scrollTo(0, scrollHeight)
   }
   useEffect(() => {
     scrollRef.current = document.querySelector(".content .chatList")
   }, [])
-  const handleSearch = debounce(() => {
+  const handleSearch = () => {
     setLoading(true)
     flushSync(() => {
       setChat(currentChatId, {
@@ -57,6 +57,8 @@ const TextSend: FC = () => {
         timeStamp: Date.now(),
       })
     })
+    const scrollHeight = scrollRef.current?.scrollHeight
+    scrollRef.current?.scrollTo(0, scrollHeight)
     setQuestion("")
     fetchChat({
       question,
@@ -73,7 +75,7 @@ const TextSend: FC = () => {
       .finally(() => {
         setLoading(false)
       })
-  }, 1000)
+  }
 
   return (
     <div className="text-send">
