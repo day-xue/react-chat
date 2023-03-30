@@ -1,13 +1,9 @@
-import { FC, useEffect } from "react"
-import { Outlet, useNavigate } from "react-router-dom"
+import { FC } from "react"
+import { Outlet } from "react-router-dom"
 import TopBar from "./components/TopBar"
 import styles from "./index.module.scss"
 
 const Layout: FC = () => {
-  const navigate = useNavigate()
-  useEffect(() => {
-    navigate("/chat")
-  }, [])
   return (
     <main className={styles.layout}>
       <TopBar />
