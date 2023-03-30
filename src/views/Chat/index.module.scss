@@ -11,39 +11,69 @@
         min-width: auto;
       }
       .chat__right {
-        flex-direction: row-reverse;
-        .timeStamp {
-          text-align: right;
+        flex-direction: column;
+        .ant-list-item-meta {
+          flex-direction: row-reverse;
+          width: 100%;
+          .ant-list-item-meta-content {
+            text-align: right;
+            padding-right: 10px;
+          }
         }
-        .message {
-          background-color: rgba(30, 128, 255, 0.1);
+        .chat__info {
+          width: 100%;
+          display: flex;
+          flex-direction: row-reverse;
+          margin: 5px;
+          margin-inline-end: 30px;
+          .message {
+            width: 100%;
+            border-radius: 6px;
+            padding: 8px;
+            max-width: 60vw;
+            text-align: right;
+            background-color: rgba(30, 128, 255, 0.1);
+          }
+          .chatItem {
+            word-break: break-all;
+          }
         }
       }
       .chat__left {
-        flex-direction: row;
-        .timeStamp {
-          text-align: left;
-        }
-        .message {
-          background-color: rgb(244, 246, 248);
-        }
-      }
-    }
+        flex-direction: column;
+        .ant-list-item-meta {
+          width: 100%;
 
-    .chat__info {
-      .timeStamp {
-        font-size: 12px;
-        line-height: 12px;
-        color: rgb(180 187 196);
-      }
-      .message {
-        border-radius: 6px;
-        padding: 8px;
-        max-width: 60vw;
-      }
-      .chatItem {
-        width: 100%;
-        word-break: break-all;
+          .ant-list-item-meta-content {
+            padding-left: 20px;
+          }
+        }
+        .chat__info {
+          width: 100%;
+          margin: 5px;
+          margin-inline-start: 30px;
+          position: relative;
+          .message {
+            width: 100%;
+            border-radius: 0px 5px 5px 5px;
+            padding: 8px;
+            max-width: 60vw;
+            background-color: rgb(244, 246, 248);
+          }
+          .chatItem {
+            word-break: break-all;
+          }
+          &::before {
+            content: "";
+            width: 0px;
+            height: 0px;
+            border: 6px solid rgb(244, 246, 248);
+            border-color: transparent rgb(244, 246, 248) transparent transparent;
+            position: absolute;
+            left: -10px;
+            top: 10px;
+          }
+        }
       }
     }
 
