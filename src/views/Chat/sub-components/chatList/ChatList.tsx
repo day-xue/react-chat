@@ -46,7 +46,11 @@ const ChatList: FC<ChatListProps> = props => {
               {i.type === "req" ? (
                 <Avatar
                   className="avatar"
-                  sx={{ width: "32px", height: "32px", marginLeft: "10px" }}>
+                  sx={{
+                    width: "32px",
+                    height: "32px",
+                    marginLeft: "10px",
+                  }}>
                   {username?.[0] || "游"}
                 </Avatar>
               ) : (

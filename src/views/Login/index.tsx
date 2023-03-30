@@ -19,7 +19,7 @@ type UserForm = {
   activeCode: string
 }
 
-const Login: FC = props => {
+const Login: FC = () => {
   const [userForm, setUserForm] = useState<UserForm>({
     username: "",
     password: "",

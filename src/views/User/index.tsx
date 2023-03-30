@@ -15,9 +15,11 @@ const User: FC = props => {
   return (
     <main className={styles.user__wrapper}>
       {avatar ? (
-        <Avatar className="avatar" src={avatar} />
+        <Avatar src={avatar} sx={{ width: "100px", height: "100px" }} />
       ) : (
-        <Avatar className="avatar">{username?.slice(0, 2) || "游"}</Avatar>
+        <Avatar sx={{ width: "100px", height: "100px", fontSize: "40px" }}>
+          {username?.slice(0, 2) || "游"}
+        </Avatar>
       )}
       <Typography variant="h6" gutterBottom className="name">
         {username || "游客"}
