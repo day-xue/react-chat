@@ -9,21 +9,21 @@
   padding: 0;
   background-color: #fff;
   position: relative;
-  display: flex;
   margin-left: auto;
   margin-right: auto;
-  flex-direction: column;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px,
-    rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;
+  /* box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px,
+    rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px; */
   //background-color: #1e1e1e;
 
   :global {
     .content {
-      flex: 1;
+      height: calc(100vh - 56px);
       width: 100%;
-      overflow: auto;
+      //overflow: auto;
     }
     .tabs {
+      position: sticky;
+      top: 0;
       .tab__extra {
         padding-left: 15px;
         padding-right: 10px;
@@ -36,11 +36,6 @@
           height: 25px;
         }
       }
-    }
-    .bottom__wrapper {
-      position: sticky;
-      bottom: 0;
-      width: 100%;
     }
   }
 }
