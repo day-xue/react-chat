@@ -19,6 +19,7 @@ const codeStyle: React.CSSProperties = {
   color: "#fff",
   borderRadius: "6px",
   padding: "5px",
+  width: "100%",
 }
 
 const OmsViewMarkdown = (props: tProps) => {
@@ -28,6 +29,7 @@ const OmsViewMarkdown = (props: tProps) => {
       components={{
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         code({ node, inline, className, children, ...props }) {
+          console.log(className)
           const match = /language-(\w+)/.exec(className || "")
           return !inline && match ? (
             <SyntaxHighlighter

@@ -1,3 +1,4 @@
+import { useStore } from "@/store"
 import {
   Avatar,
   List,
@@ -6,44 +7,24 @@ import {
   ListItemText,
 } from "@mui/material"
 import { FC, memo } from "react"
-import ChatItem from "./ChatItem"
-import dayjs from "dayjs"
-import { useStore } from "@/store"
 import AiAvatar from "../ai-avatar"
-type ChatListProps = {
-  textContent: string
-}
-const test = [
-  {
-    uuid: "1",
-    timeStamp: dayjs(new Date()).format("YYYY/MM/DD HH:mm:ss"),
-    type: "req",
-    content: "<span>reqreqreqreqreqreqreqreqreqreqreqreqreqreqreqreq</span>",
-  },
-  {
-    uuid: "2",
-    timeStamp: dayjs(new Date()).format("YYYY/MM/DD HH:mm:ss"),
-    type: "res",
-    content:
-      "<span>resresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresresres</span>",
-  },
-]
+import ChatItem from "./ChatItem"
 
-const ChatList: FC<ChatListProps> = props => {
-  const { textContent } = props
+const ChatList: FC = () => {
   const {
     userInfo: { username },
+    historyChatMap,
+    currentChatId,
   } = useStore()
-
   return (
     <List className="chatList">
-      {test.map(i => {
+      {historyChatMap[currentChatId]?.map(i => {
         return (
           <ListItem
-            className={i.type === "req" ? "chat__right" : "chat__left"}
-            key={i.uuid}>
+            className={i.type === "R" ? "chat__right" : "chat__left"}
+            key={i.id}>
             <ListItemAvatar className="avatar__wrapper">
-              {i.type === "req" ? (
+              {i.type === "L" ? (
                 <Avatar
                   className="avatar"
                   sx={{
@@ -64,7 +45,9 @@ const ChatList: FC<ChatListProps> = props => {
                 primary={i.timeStamp}
               />
               <div className="message">
-                <ChatItem textContent={i.content} />
+                <ChatItem
+                  textContent={i.type == "L" ? i.answer! : i.question!}
+                />
               </div>
             </div>
           </ListItem>

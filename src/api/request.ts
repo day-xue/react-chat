@@ -12,13 +12,17 @@ instance$1.setInterceptorsReq(config => {
   return config
 })
 instance$1.setInterceptorsRes(res => {
+  if (res.data.code === 3) {
+    location.href = "#/login"
+    return Promise.reject(res.data.msg)
+  }
   return res.data
 })
 
 export const defaultInstance = instance$1.getInstance()
 
 type AxiosResponse<T> = {
-  code: 0 | 1
+  code: 0 | 1 | 3
   msg: string
   data: T
 }
