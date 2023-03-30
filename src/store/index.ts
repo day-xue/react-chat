@@ -9,7 +9,7 @@ const initState = {
   },
   token: null,
   textContent: null,
-  currentChatId: nanoid(),
+  currentChatId: "_chat_default",
 }
 type ChartType = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
