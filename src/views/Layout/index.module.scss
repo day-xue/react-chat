@@ -1,13 +1,22 @@
-.layout__wrapper {
+@media screen and (min-width: 600px) {
+  .layout {
+    max-width: 600px;
+  }
+}
+
+.layout {
   height: 100vh;
   padding: 0;
   background-color: #fff;
   position: relative;
   display: flex;
+  margin-left: auto;
+  margin-right: auto;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px,
     rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;
   //background-color: #1e1e1e;
+
   :global {
     .content {
       flex: 1;

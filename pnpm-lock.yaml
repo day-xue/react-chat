@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@ant-design/icons': ^5.0.1
   '@commitlint/cli': ^17.5.0
   '@commitlint/config-conventional': ^17.4.4
   '@emotion/react': ^11.10.6
@@ -44,6 +45,7 @@ specifiers:
   zustand: ^4.3.6
 
 dependencies:
+  '@ant-design/icons': registry.npmmirror.com/@ant-design/icons/5.0.1_react-dom@18.2.0+react@18.2.0
   '@emotion/react': registry.npmmirror.com/@emotion/react/11.10.6_5708dfd00fbb974a112e21bceda05a00
   '@emotion/styled': registry.npmmirror.com/@emotion/styled/11.10.6_cba3a0d3859d1688638e23de6739f220
   '@fontsource/roboto': registry.npmmirror.com/@fontsource/roboto/4.5.8

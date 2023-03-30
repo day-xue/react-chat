@@ -1,170 +1,145 @@
-import {
-  Box,
-  Button,
-  Container,
-  FormControl,
-  FormLabel,
-  Input,
-  Typography,
-} from "@mui/material"
 import { FC, useState } from "react"
 import styles from "./index.module.scss"
 import { useNavigate } from "react-router-dom"
 import { loginApi, registerApi } from "@/api"
-import toast from "@/components/toast"
 import { useStore } from "@/store"
-type UserForm = {
-  username: string
-  password: string
-  activeCode: string
+import { Form, Button, Input, Typography, message } from "antd"
+import { LockOutlined, UserOutlined, GlobalOutlined } from "@ant-design/icons"
+import { useRequest } from "ahooks"
+
+const { Title } = Typography
+
+const Footer = ({
+  formType,
+  setFormType,
+}: {
+  formType: "login" | "register"
+  setFormType: (formType: "login" | "register") => void
+}) => {
+  return (
+    <div className="footer">
+      {formType === "login" ? (
+        <>
+          <Title level={5}>还没有账号?</Title>
+          <Button onClick={() => setFormType("register")} type="link">
+            去注册
+          </Button>
+        </>
+      ) : (
+        <Button onClick={() => setFormType("login")} type="link">
+          返回登录
+        </Button>
+      )}
+    </div>
+  )
 }
 
 const Login: FC = () => {
-  const [userForm, setUserForm] = useState<UserForm>({
-    username: "",
-    password: "",
-    activeCode: "",
-  })
   const { setToken, setUserInfo } = useStore()
   const [formType, setFormType] = useState<"login" | "register">("login")
   const navigate = useNavigate()
-  const setUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const username = event.target.value
-    setUserForm({
-      ...userForm,
-      username,
-    })
-  }
-  const setPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const password = event.target.value
-    setUserForm({
-      ...userForm,
-      password,
-    })
-  }
-  const setCode = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const activeCode = event.target.value
-    setUserForm({
-      ...userForm,
-      activeCode,
-    })
-  }
-  const renderFooter = () => {
-    if (formType === "login")
-      return (
-        <Box sx={{ textAlign: "center" }}>
-          <Typography variant="body2">还没有账号?</Typography>
-          <Typography
-            variant="button"
-            display="block"
-            gutterBottom
-            sx={{ color: "#1976d2" }}
-            onClick={() => setFormType("register")}>
-            去注册
-          </Typography>
-        </Box>
-      )
 
-    return (
-      <Box sx={{ textAlign: "center" }}>
-        <Typography
-          variant="button"
-          display="block"
-          gutterBottom
-          sx={{ color: "#1976d2" }}
-          onClick={() => setFormType("login")}>
-          返回登录
-        </Typography>
-      </Box>
-    )
-  }
-  const handleClick = () => {
+  const loginAction = useRequest(loginApi, {
+    manual: true,
+  })
+
+  const registerAction = useRequest(registerApi, {
+    manual: true,
+  })
+
+  const onFinish = (values: any) => {
+    const { username, activeCode, password } = values
+
     if (formType === "login") {
-      const { username, password } = userForm
-      loginApi({
-        username,
-        password,
-      })
+      loginAction
+        .runAsync({
+          username,
+          password,
+        })
         .then(({ token, username, avatar }) => {
           setToken(token)
           setUserInfo({
             username,
             avatar,
           })
-          toast("登录成功")
+          message.success("登录成功")
           navigate("/user")
         })
         .catch((err: Error) => {
-          toast(err.message)
+          message.error(err.message)
         })
     } else {
-      const { username, password, activeCode } = userForm
-      registerApi({
-        username,
-        password,
-        activeCode,
-      })
+      registerAction
+        .runAsync({
+          username,
+          password,
+          activeCode,
+        })
         .then(() => {
-          toast("注册成功")
+          message.success("注册成功")
           setFormType("login")
         })
         .catch((err: Error) => {
-          toast(err.message)
+          message.error(err.message)
         })
     }
   }
+
   return (
-    <Container maxWidth={false} className={styles.login__wrapper}>
-      <main>
-        <Typography component="h1" sx={{ fontSize: 26, mb: 4 }}>
-          <b>登录 / 注册</b>
-        </Typography>
+    <div className={styles.login}>
+      <Title level={3} className="title">
+        登录 / 注册
+      </Title>
 
-        <FormControl fullWidth>
-          <FormLabel>用户名</FormLabel>
+      <Form
+        name="basic"
+        onFinish={onFinish}
+        layout="vertical"
+        autoComplete="off">
+        <Form.Item
+          name="username"
+          rules={[{ required: true, message: "Please input your username!" }]}>
           <Input
-            margin="none"
-            name="email"
-            type="email"
-            placeholder="example@email.com"
-            value={userForm?.username}
-            onChange={setUsername}
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Username"
           />
-        </FormControl>
+        </Form.Item>
 
-        <FormControl fullWidth margin="normal">
-          <FormLabel>密码</FormLabel>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: "Please input your password!" }]}>
           <Input
-            name="password"
+            prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
-            placeholder="password"
-            value={userForm?.password}
-            onChange={setPassword}
+            placeholder="Password"
           />
-        </FormControl>
+        </Form.Item>
+
         {formType === "register" && (
-          <FormControl fullWidth margin="normal">
-            <FormLabel>激活码</FormLabel>
+          <Form.Item
+            name="activeCode"
+            rules={[
+              { required: true, message: "Please input your activeCode!" },
+            ]}>
             <Input
-              name="activeCode"
-              type="activeCode"
-              placeholder="123456"
-              value={userForm?.activeCode}
-              onChange={setCode}
+              prefix={<GlobalOutlined className="site-form-item-icon" />}
+              placeholder="ActiveCode"
             />
-          </FormControl>
+          </Form.Item>
         )}
 
-        <Button
-          fullWidth
-          sx={{ mt: 4, mb: 3 }}
-          variant="contained"
-          onClick={handleClick}>
-          {formType === "login" ? "登录" : "注册"}
-        </Button>
-        {renderFooter()}
-      </main>
-    </Container>
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            block
+            loading={loginAction.loading || registerAction.loading}>
+            {formType === "login" ? "登录" : "注册"}
+          </Button>
+          <Footer formType={formType} setFormType={setFormType} />
+        </Form.Item>
+      </Form>
+    </div>
   )
 }
 
