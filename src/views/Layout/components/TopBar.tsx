@@ -55,6 +55,7 @@ const TopBar: FC = () => {
 
   const handleActive = (key: string) => {
     setActiveKey(key)
+    setCurrentChatId(key)
   }
 
   const handleEdit = (targetKey: TargetKey, action: "add" | "remove") => {
