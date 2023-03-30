@@ -1,29 +1,59 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useStore } from "@/store"
-import { Avatar, Tabs } from "antd"
+import { Avatar, Tabs, Popover } from "antd"
 import { nanoid } from "nanoid"
 import { FC, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import styles from "../index.module.scss"
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string
 
+const Select = () => {
+  const navigate = useNavigate()
+  const {
+    userInfo: { username },
+    setUserInfo,
+    setToken,
+  } = useStore()
+
+  return (
+    <div className={styles.select__wrapper}>
+      <div className="select__item" onClick={() => navigate("/user")}>
+        个人中心
+      </div>
+      <div
+        className="select__item"
+        onClick={() => {
+          setUserInfo({ username: null, avatar: null })
+          setToken(null)
+          navigate("/login")
+        }}>
+        {username ? "退出登录" : "去登录"}
+      </div>
+    </div>
+  )
+}
 const ExtraAvatar: FC = () => {
   const {
     userInfo: { username, avatar },
   } = useStore()
 
-  const navigate = useNavigate()
-
   return (
-    <div className="tab__extra" onClick={() => navigate("/user")}>
-      {avatar ? (
-        <Avatar src={avatar} className="user__avatar" />
-      ) : (
-        <Avatar className="user__avatar">
-          {username?.slice(0, 2) || "游"}
-        </Avatar>
-      )}
-    </div>
+    <Popover
+      placement="bottomRight"
+      content={Select}
+      trigger="hover"
+      overlayInnerStyle={{ padding: 5 }}>
+      <div className="tab__extra">
+        {avatar ? (
+          <Avatar src={avatar} className="user__avatar" />
+        ) : (
+          <Avatar className="user__avatar">
+            {username?.slice(0, 2) || "游"}
+          </Avatar>
+        )}
+      </div>
+    </Popover>
   )
 }
 const TopBar: FC = () => {

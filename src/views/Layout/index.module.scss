@@ -11,19 +11,22 @@
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  /* box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px,
-    rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px; */
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px,
+    rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;
   //background-color: #1e1e1e;
 
   :global {
     .content {
-      height: calc(100vh - 56px);
+      height: calc(100vh - 40px);
       width: 100%;
       //overflow: auto;
     }
     .tabs {
       position: sticky;
       top: 0;
+      .ant-tabs-nav {
+        margin: 0px;
+      }
       .tab__extra {
         padding-left: 15px;
         padding-right: 10px;
@@ -35,6 +38,20 @@
           width: 25px;
           height: 25px;
         }
+      }
+    }
+  }
+}
+.select__wrapper {
+  :global {
+    .select__item {
+      padding: 5px;
+      border-radius: 8px;
+      font-size: 13px;
+      &:hover {
+        color: #1677ff;
+        background-color: #e6f4ff;
+        font-weight: 700;
       }
     }
   }

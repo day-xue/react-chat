@@ -10,6 +10,7 @@ const User: FC = () => {
   const navigate = useNavigate()
   const {
     userInfo: { avatar, username },
+    setToken,
     setUserInfo,
   } = useStore()
 
@@ -36,7 +37,8 @@ const User: FC = () => {
           <Button
             type="primary"
             onClick={() => {
-              setUserInfo({ username: "", avatar: "" })
+              setUserInfo({ username: null, avatar: null })
+              setToken(null)
               navigate("/login")
             }}>
             退出账号

@@ -46,7 +46,7 @@ interface StoreType {
   setUserInfo: (userInfo: UserInfo) => void
 
   token: string | null
-  setToken: (token: string) => void
+  setToken: (token: string | null) => void
 
   currentChatId: string
   setCurrentChatId: (id: string) => void

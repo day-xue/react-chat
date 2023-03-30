@@ -88,7 +88,7 @@ const Login: FC = () => {
   return (
     <div className={styles.login}>
       <Title level={3} className="title">
-        登录 / 注册
+        登录 <span style={{ fontWeight: 700, lineHeight: 1 }}>/</span> 注册
       </Title>
 
       <Form
@@ -98,7 +98,7 @@ const Login: FC = () => {
         autoComplete="off">
         <Form.Item
           name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}>
+          rules={[{ required: true, message: "请输入用户名!" }]}>
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="Username"
@@ -107,7 +107,7 @@ const Login: FC = () => {
 
         <Form.Item
           name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}>
+          rules={[{ required: true, message: "请输入密码!" }]}>
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
@@ -118,9 +118,7 @@ const Login: FC = () => {
         {formType === "register" && (
           <Form.Item
             name="activeCode"
-            rules={[
-              { required: true, message: "Please input your activeCode!" },
-            ]}>
+            rules={[{ required: true, message: "请输入激活码!" }]}>
             <Input
               prefix={<GlobalOutlined className="site-form-item-icon" />}
               placeholder="ActiveCode"

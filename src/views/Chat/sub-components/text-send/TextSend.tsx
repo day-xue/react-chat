@@ -45,6 +45,7 @@ const TextSend: FC = () => {
   }
 
   const handleSearch = debounce(() => {
+    setLoading(true)
     flushSync(() => {
       setChat(currentChatId, {
         id: nanoid(),
@@ -54,7 +55,6 @@ const TextSend: FC = () => {
       })
     })
     setQuestion("")
-    setLoading(true)
     fetchChat({
       question,
       onDownloadProgress,

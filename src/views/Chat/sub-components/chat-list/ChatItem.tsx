@@ -1,5 +1,5 @@
 import OmsSyntaxHighlight from "@/components/OmsSyntaxHighlight"
-import React, { FC, memo } from "react"
+import { FC, memo } from "react"
 type ChatItemProps = {
   textContent: string
 }
@@ -7,7 +7,7 @@ type ChatItemProps = {
 const ChatItem: FC<ChatItemProps> = props => {
   const { textContent } = props
   return (
-    <div style={{ display: "block" }} className="chatItem">
+    <div className="chatItem">
       <OmsSyntaxHighlight darkMode="dark" textContent={textContent} />
     </div>
   )

@@ -1,15 +1,11 @@
 import { useStore } from "@/store"
-import { Avatar, List } from "antd"
+import { List } from "antd"
 import dayjs from "dayjs"
 import { FC, memo } from "react"
 import ChatItem from "./ChatItem"
 
 const ChatList: FC = () => {
-  const {
-    userInfo: { username },
-    historyChatMap,
-    currentChatId,
-  } = useStore()
+  const { historyChatMap, currentChatId } = useStore()
   return (
     <List className="chatList">
       {historyChatMap[currentChatId]?.map(i => {
@@ -18,9 +14,6 @@ const ChatList: FC = () => {
             className={i.type === "R" ? "chat__right" : "chat__left"}
             key={i.id}>
             <List.Item.Meta
-              avatar={
-                i.type === "R" ? <Avatar>{username?.[0] || "游"}</Avatar> : null
-              }
               description={dayjs(i.timeStamp).format("YYYY-MM-DD HH:mm:ss")}
             />
             <div className="chat__info">
