@@ -42,9 +42,15 @@ const OmsViewMarkdown = (props: tProps) => {
               {String(children)}
             </SyntaxHighlighter>
           ) : (
-            <code style={codeStyle} className={className} {...props}>
-              {children}
-            </code>
+            <SyntaxHighlighter
+              showLineNumbers={false}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              style={them[darkMode] as any}
+              language={"js"}
+              PreTag="div"
+              {...props}>
+              {String(children)}
+            </SyntaxHighlighter>
           )
         },
       }}>
