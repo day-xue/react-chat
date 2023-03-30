@@ -1,8 +1,8 @@
-import { HashRouter, useRoutes } from "react-router-dom"
 import Chat from "@/views/Chat"
 import Layout from "@/views/Layout"
-import User from "@/views/User"
 import Login from "@/views/Login"
+import User from "@/views/User"
+import { HashRouter, useRoutes } from "react-router-dom"
 
 export const routes = [
   {

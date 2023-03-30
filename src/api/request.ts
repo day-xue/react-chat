@@ -3,7 +3,7 @@ import { Instance } from "./axiosClass"
 
 const defaultOption: CreateAxiosDefaults = {
   baseURL: "https://cleqy3.laf.dev",
-  timeout: 1000 * 60 * 2,
+  timeout: 6000,
 }
 
 const instance$1 = new Instance(defaultOption)
