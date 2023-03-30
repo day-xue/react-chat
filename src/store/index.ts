@@ -1,18 +1,33 @@
 import { nanoid } from "nanoid"
 import { create } from "zustand"
 import { createJSONStorage, devtools, persist } from "zustand/middleware"
+import { type TabsProps } from "antd"
+
 const initState = {
+  // textContent: null,
+
+  /** 问答记录 */
   historyChatMap: {},
+  /** 用户信息 */
   userInfo: {
     avatar: null,
     username: null,
   },
+  /** token */
   token: null,
-  textContent: null,
+  /** 当前问答id */
   currentChatId: "_chat_default",
+  /** 问答key集合 */
+  chatMapKeys: [
+    {
+      key: "_chat_default",
+      label: `default`,
+      children: null,
+      closable: false,
+    },
+  ],
 }
 type ChartType = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   id: string
   parentMessageId?: string
   question?: string
@@ -23,18 +38,21 @@ type ChartType = {
 type UserInfo = { username?: string | null; avatar?: string | null }
 
 interface StoreType {
+  // textContent: string | null
+  // setTextContent: (textContent: string) => void
   historyChatMap: { [chatId: string]: ChartType[] }
   setChat: (chatId: string, chatOption: ChartType) => void
   userInfo: UserInfo
   setUserInfo: (userInfo: UserInfo) => void
+
   token: string | null
   setToken: (token: string) => void
 
-  textContent: string | null
-  setTextContent: (textContent: string) => void
-
   currentChatId: string
   setCurrentChatId: (id: string) => void
+
+  chatMapKeys: TabsProps["items"]
+  setChatMapKeys: (chatMapKeys: TabsProps["items"]) => void
 
   updateCurrentChatIdAnswer: (text: string) => void
 }
@@ -44,7 +62,10 @@ export const useStore = create<StoreType>()(
     persist(
       (set, get) => ({
         ...initState,
-        setUserInfo(userInfo = { avatar: null, username: null }) {
+        // setTextContent(textContent) {
+        //   set({ textContent })
+        // },
+        setUserInfo(userInfo: UserInfo) {
           set({ userInfo })
         },
         setToken(token) {
@@ -62,9 +83,7 @@ export const useStore = create<StoreType>()(
           historyChatMap[chatId].push(...[chatOption, answer])
           set({ historyChatMap })
         },
-        setTextContent(textContent) {
-          set({ textContent })
-        },
+
         setCurrentChatId(id) {
           set({ currentChatId: id })
         },
@@ -73,6 +92,11 @@ export const useStore = create<StoreType>()(
           const lastLeftIndex = historyChatMap[currentChatId].length - 1
           historyChatMap[currentChatId][lastLeftIndex].answer = text
           set({ historyChatMap })
+        },
+        setChatMapKeys(chatMapKeys) {
+          set({
+            chatMapKeys,
+          })
         },
       }),
       {

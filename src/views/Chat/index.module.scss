@@ -48,22 +48,12 @@
     }
 
     .text-send {
-      padding: 0 10px 10px 10px;
-      width: 100%;
+      padding: 10px;
+      background-color: rgb(255, 255, 255);
+      border-top: solid 1px rgb(217, 217, 227);
       position: sticky;
       bottom: 0;
       display: flex;
-      .text-form {
-        width: 100%;
-        margin: 0px 10px 5px;
-      }
-      .search-icon {
-        padding: 0;
-        align-items: flex-end;
-        svg {
-          font-size: 40px;
-        }
-      }
     }
   }
 }

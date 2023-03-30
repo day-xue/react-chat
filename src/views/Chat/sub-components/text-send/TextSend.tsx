@@ -1,11 +1,12 @@
 import { fetchChat, type AxiosProgressEvent } from "@/api"
 import { useStore } from "@/store"
-import { Search } from "@mui/icons-material"
-import { FormControl, IconButton, Input, InputLabel } from "@mui/material"
 import { debounce } from "lodash-es"
 import { nanoid } from "nanoid"
 import { memo, useRef, useState, type FC } from "react"
 import { flushSync } from "react-dom"
+import { Input, message } from "antd"
+
+const { Search } = Input
 type ResChunkType = {
   role: string
   id: string
@@ -27,8 +28,9 @@ type ResChunkType = {
 const TextSend: FC = () => {
   const [question, setQuestion] = useState("")
   const { setChat, currentChatId, updateCurrentChatIdAnswer } = useStore()
-
+  const [loading, setLoading] = useState(false)
   const oldChat = useRef<{ [currentId: string]: ResChunkType }>({})
+
   const onDownloadProgress = (e: AxiosProgressEvent) => {
     const xhr = e.event.target
     const { responseText } = xhr
@@ -36,10 +38,12 @@ const TextSend: FC = () => {
     let chunk = responseText
     if (lastIndex !== -1) chunk = responseText.substring(lastIndex)
     const data = JSON.parse(chunk) as ResChunkType
-    console.log(data)
+    // TODO: for debug
+    console.log("chunkData", data)
     oldChat.current![currentChatId] = data
     updateCurrentChatIdAnswer(data.text)
   }
+
   const handleSearch = debounce(() => {
     flushSync(() => {
       setChat(currentChatId, {
@@ -50,36 +54,33 @@ const TextSend: FC = () => {
       })
     })
     setQuestion("")
+    setLoading(true)
     fetchChat({
       question,
       onDownloadProgress,
       parentMessageId: oldChat.current?.[currentChatId]?.id,
       chatId: currentChatId,
-    }).then(() => {
-      console.log("ok")
     })
+      .then(() => {
+        console.log("ok")
+      })
+      .catch(() => {
+        message.error("请先登录")
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }, 1000)
 
   return (
     <div className="text-send">
-      <FormControl className="text-form" variant="standard">
-        <InputLabel htmlFor="outlined-question">输入问题</InputLabel>
-        <Input
-          id="outlined-question"
-          value={question}
-          onChange={v => setQuestion(v.target.value)}
-          className="text-area"
-          endAdornment={
-            <IconButton
-              className="search-icon"
-              onClick={handleSearch}
-              type="button"
-              aria-label="search">
-              <Search />
-            </IconButton>
-          }
-        />
-      </FormControl>
+      <Search
+        placeholder="请输入问题..."
+        loading={loading}
+        value={question}
+        onChange={v => setQuestion(v.target.value)}
+        onSearch={handleSearch}
+      />
     </div>
   )
 }
