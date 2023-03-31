@@ -69,8 +69,8 @@ const TextSend: FC = () => {
       .then(() => {
         console.log("ok")
       })
-      .catch(() => {
-        message.error("请先登录")
+      .catch((err: Error) => {
+        message.error(err.message)
       })
       .finally(() => {
         setLoading(false)

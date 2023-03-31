@@ -23,6 +23,7 @@ export const fetchChat = (option: FetchChatOption) => {
       Authorization: getToken(),
     },
     onDownloadProgress: onDownloadProgress,
+    timeout: 1000 * 60 * 2,
   })
 }
 
