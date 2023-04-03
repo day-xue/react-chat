@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useStore } from "@/store"
+import { useStore, StoreType } from "@/store"
 import { Avatar, Tabs, Popover } from "antd"
 import { nanoid } from "nanoid"
 import { FC, useState } from "react"
@@ -8,8 +8,17 @@ import styles from "../index.module.scss"
 
 type TargetKey = React.MouseEvent | React.KeyboardEvent | string
 
+const topBarStoreSelector = (s: StoreType) => {
+  return {
+    setCurrentChatId: s.setCurrentChatId,
+    chatMapKeys: s.chatMapKeys,
+    setChatMapKeys: s.setChatMapKeys,
+  }
+}
+
 const Select = () => {
   const navigate = useNavigate()
+
   const {
     userInfo: { username },
     setUserInfo,
@@ -57,7 +66,8 @@ const ExtraAvatar: FC = () => {
   )
 }
 const TopBar: FC = () => {
-  const { setCurrentChatId, chatMapKeys, setChatMapKeys } = useStore()
+  const { setCurrentChatId, chatMapKeys, setChatMapKeys } =
+    useStore(topBarStoreSelector)
   const [activeKey, setActiveKey] = useState("_chat_default")
   const navigate = useNavigate()
 

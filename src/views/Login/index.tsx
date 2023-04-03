@@ -35,7 +35,7 @@ const Footer = ({
 }
 
 const Login: FC = () => {
-  const { setToken, setUserInfo } = useStore()
+  const { setToken, setUserInfo, setCallCount } = useStore()
   const [formType, setFormType] = useState<"login" | "register">("login")
   const navigate = useNavigate()
 
@@ -56,12 +56,13 @@ const Login: FC = () => {
           username,
           password,
         })
-        .then(({ token, username, avatar }) => {
+        .then(({ token, username, avatar, callCount }) => {
           setToken(token)
           setUserInfo({
             username,
             avatar,
           })
+          setCallCount(callCount)
           message.success("登录成功")
           navigate("/user")
         })

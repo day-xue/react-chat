@@ -34,6 +34,7 @@ export const loginApi = (payload: { username: string; password: string }) => {
       username: string
       token: string
       avatar: string
+      callCount: number
     }
   >({
     url: "/login",

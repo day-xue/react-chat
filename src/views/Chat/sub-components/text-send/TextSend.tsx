@@ -26,7 +26,13 @@ type ResChunkType = {
 }
 const TextSend: FC = () => {
   const [question, setQuestion] = useState("")
-  const { setChat, currentChatId, updateCurrentChatIdAnswer } = useStore()
+  const {
+    setChat,
+    currentChatId,
+    updateCurrentChatIdAnswer,
+    callCount,
+    setCallCount,
+  } = useStore()
   const [loading, setLoading] = useState(false)
   const oldChat = useRef<{ [currentId: string]: ResChunkType }>({})
   const scrollRef = useRef<any>()
@@ -49,6 +55,10 @@ const TextSend: FC = () => {
   }, [])
   const handleSearch = () => {
     setLoading(true)
+    if (callCount <= 0) {
+      message.error("剩余问答次数不足，请联系管理员")
+      return
+    }
     flushSync(() => {
       setChat(currentChatId, {
         id: nanoid(),
@@ -67,7 +77,7 @@ const TextSend: FC = () => {
       chatId: currentChatId,
     })
       .then(() => {
-        console.log("ok")
+        setCallCount(callCount - 1)
       })
       .catch((err: Error) => {
         message.error(err.message)
