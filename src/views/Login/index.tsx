@@ -11,13 +11,12 @@ import { catchApiError } from "@/utils/catchApiError"
 
 const { Title } = Typography
 
-const Footer = ({
-  formType,
-  setFormType,
-}: {
+type IProps = {
   formType: "login" | "register"
   setFormType: (formType: "login" | "register") => void
-}) => {
+}
+
+const Footer = ({ formType, setFormType }: IProps) => {
   return (
     <div className="footer">
       {formType === "login" ? (

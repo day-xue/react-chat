@@ -1,6 +1,6 @@
 import { getToken } from "@/utils/getToken"
 import { type AxiosProgressEvent } from "axios"
-import { defaultInstance, fetchApi } from "./request"
+import { defaultInstance } from "./request"
 
 type FetchChatOption = {
   question: string
@@ -28,7 +28,7 @@ export const fetchChat = (option: FetchChatOption) => {
 }
 
 export const loginApi = (payload: { username: string; password: string }) => {
-  return fetchApi<
+  return defaultInstance<
     typeof payload,
     {
       token: string
@@ -47,7 +47,7 @@ export const registerApi = (payload: {
   password: string
   activeCode: string
 }) => {
-  return fetchApi<typeof payload, undefined>({
+  return defaultInstance<typeof payload, undefined>({
     url: "/register",
     method: "POST",
     data: {
@@ -57,7 +57,7 @@ export const registerApi = (payload: {
 }
 
 export const userInfoApi = () => {
-  return fetchApi<
+  return defaultInstance<
     undefined,
     {
       userInfo?: {

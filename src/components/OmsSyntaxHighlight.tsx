@@ -5,7 +5,7 @@ import {
   oneLight,
 } from "react-syntax-highlighter/dist/esm/styles/prism"
 
-type tProps = {
+type IProps = {
   textContent: string
   darkMode: "dark" | "light"
 }
@@ -22,7 +22,7 @@ const codeStyle: React.CSSProperties = {
   width: "100%",
 }
 
-const OmsViewMarkdown = (props: tProps) => {
+const OmsViewMarkdown = (props: IProps) => {
   const { textContent, darkMode } = props
   return (
     <ReactMarkdown

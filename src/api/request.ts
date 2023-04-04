@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, type CreateAxiosDefaults } from "axios"
+import { type CreateAxiosDefaults } from "axios"
 import { Instance } from "./axiosClass"
 
 const defaultOption: CreateAxiosDefaults = {
@@ -12,35 +12,15 @@ instance$1.setInterceptorsReq(config => {
   return config
 })
 instance$1.setInterceptorsRes(res => {
-  if (res.data.code === 3) {
+  const { code, msg, data } = res.data || {}
+  if (code === 3) {
     location.href = "#/login"
     // 兼容Error对象
-    return Promise.reject({ message: res.data.msg })
+    return Promise.reject({ message: msg })
+  } else if (code === 0) {
+    return Promise.reject({ message: msg })
   }
-  return res.data
+  return data
 })
 
 export const defaultInstance = instance$1.getInstance()
-
-type AxiosResponse<T> = {
-  code: 0 | 1 | 3
-  msg: string
-  data: T
-}
-
-export const fetchApi = <T, R>(options: AxiosRequestConfig<T>): Promise<R> => {
-  return new Promise((resolve, reject) => {
-    defaultInstance<T, AxiosResponse<R>>(options)
-      .then(res => {
-        const { code, msg, data } = res
-        if (code === 1) {
-          resolve(data)
-        } else {
-          reject({ message: msg })
-        }
-      })
-      .catch(err => {
-        reject(err)
-      })
-  })
-}
