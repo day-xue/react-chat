@@ -55,6 +55,7 @@ const TextSend: FC = () => {
     scrollRef.current = document.querySelector(".content .chatList")
   }, [])
   const handleSearch = () => {
+    if (!question.trim()) return catchApiError(new Error("请输入问题"))
     setLoading(true)
     if (callCount <= 0) {
       message.error("剩余问答次数不足，请联系管理员")
@@ -63,7 +64,7 @@ const TextSend: FC = () => {
     flushSync(() => {
       setChat(currentChatId, {
         id: nanoid(),
-        question,
+        question: question.trim(),
         type: "R",
         timeStamp: Date.now(),
       })
