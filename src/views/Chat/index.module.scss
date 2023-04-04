@@ -33,6 +33,18 @@
             max-width: 85%;
             padding: 0px 5px;
             background-color: rgba(30, 128, 255, 0.1);
+            position: relative;
+            &::before {
+              content: "";
+              width: 0px;
+              height: 0px;
+              border: 6px solid rgba(30, 128, 255, 0.1);
+              border-color: transparent transparent transparent
+                rgba(30, 128, 255, 0.1);
+              position: absolute;
+              right: -11.5px;
+              top: 10px;
+            }
           }
           .chatItem {
             word-break: break-all;
@@ -60,19 +72,21 @@
             max-width: 85%;
             padding: 0px 5px;
             background-color: rgb(244, 246, 248);
+            position: relative;
+            &::before {
+              content: "";
+              width: 0px;
+              height: 0px;
+              border: 6px solid rgb(244, 246, 248);
+              border-color: transparent rgb(244, 246, 248) transparent
+                transparent;
+              position: absolute;
+              left: -10px;
+              top: 10px;
+            }
           }
           .chatItem {
             word-break: break-all;
-          }
-          &::before {
-            content: "";
-            width: 0px;
-            height: 0px;
-            border: 6px solid rgb(244, 246, 248);
-            border-color: transparent rgb(244, 246, 248) transparent transparent;
-            position: absolute;
-            left: -10px;
-            top: 10px;
           }
         }
       }

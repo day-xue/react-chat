@@ -95,6 +95,7 @@ const TextSend: FC = () => {
         value={question}
         onChange={v => setQuestion(v.target.value)}
         onSearch={handleSearch}
+        required
       />
     </div>
   )
