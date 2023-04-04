@@ -1,5 +1,6 @@
 import { fetchChat, type AxiosProgressEvent } from "@/api"
 import { useStore } from "@/store"
+import { catchApiError } from "@/utils/catchApiError"
 import { Input, message } from "antd"
 import { nanoid } from "nanoid"
 import { memo, useEffect, useRef, useState, type FC } from "react"
@@ -79,9 +80,7 @@ const TextSend: FC = () => {
       .then(() => {
         setCallCount(callCount - 1)
       })
-      .catch((err: Error) => {
-        message.error(err.message)
-      })
+      .catch(catchApiError)
       .finally(() => {
         setLoading(false)
       })

@@ -12,6 +12,7 @@ const initState = {
   userInfo: {
     avatar: null,
     username: null,
+    callCount: 0,
   },
   /** token */
   token: null,
@@ -26,8 +27,6 @@ const initState = {
       closable: false,
     },
   ],
-  /** 剩余问答次数 */
-  callCount: 0,
 }
 type ChartType = {
   id: string
@@ -40,6 +39,7 @@ type ChartType = {
 type UserInfo = {
   username?: string | null
   avatar?: string | null
+  callCount?: number | null
 }
 
 export interface StoreType {
@@ -60,9 +60,6 @@ export interface StoreType {
   setChatMapKeys: (chatMapKeys: TabsProps["items"]) => void
 
   updateCurrentChatIdAnswer: (text: string) => void
-
-  callCount: number
-  setCallCount: (callCount: number) => void
 }
 
 export const useStore = create<StoreType>()(
@@ -104,11 +101,6 @@ export const useStore = create<StoreType>()(
         setChatMapKeys(chatMapKeys) {
           set({
             chatMapKeys,
-          })
-        },
-        setCallCount(callCount: number) {
-          set({
-            callCount,
           })
         },
       }),

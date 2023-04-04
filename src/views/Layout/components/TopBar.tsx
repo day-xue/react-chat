@@ -106,19 +106,22 @@ const TopBar: FC = () => {
   }
 
   return (
-    <section className="tabs">
-      <Tabs
-        type="editable-card"
-        activeKey={activeKey}
-        items={chatMapKeys}
-        onChange={handleActive}
-        onTabClick={() => {
-          if (location.pathname !== "/chat") navigate("/chat")
-        }}
-        onEdit={handleEdit}
-        tabBarExtraContent={<ExtraAvatar />}
-      />
-    </section>
+    <>
+      <input type="checkbox" className="isLogin__check" />
+      <section className="tabs">
+        <Tabs
+          type="editable-card"
+          activeKey={activeKey}
+          items={chatMapKeys}
+          onChange={handleActive}
+          onTabClick={() => {
+            if (location.pathname !== "/chat") navigate("/chat")
+          }}
+          onEdit={handleEdit}
+          tabBarExtraContent={<ExtraAvatar />}
+        />
+      </section>
+    </>
   )
 }
 

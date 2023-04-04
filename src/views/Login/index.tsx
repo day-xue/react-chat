@@ -6,6 +6,8 @@ import { useStore } from "@/store"
 import { Form, Button, Input, Typography, message } from "antd"
 import { LockOutlined, UserOutlined, GlobalOutlined } from "@ant-design/icons"
 import { useRequest } from "ahooks"
+import useHideTopBar from "@/hooks/useHideTopBar"
+import { catchApiError } from "@/utils/catchApiError"
 
 const { Title } = Typography
 
@@ -35,7 +37,7 @@ const Footer = ({
 }
 
 const Login: FC = () => {
-  const { setToken, setUserInfo, setCallCount } = useStore()
+  const { setToken } = useStore()
   const [formType, setFormType] = useState<"login" | "register">("login")
   const navigate = useNavigate()
 
@@ -56,19 +58,12 @@ const Login: FC = () => {
           username,
           password,
         })
-        .then(({ token, username, avatar, callCount }) => {
+        .then(({ token }) => {
           setToken(token)
-          setUserInfo({
-            username,
-            avatar,
-          })
-          setCallCount(callCount)
           message.success("登录成功")
           navigate("/user")
         })
-        .catch((err: Error) => {
-          message.error(err.message)
-        })
+        .catch(catchApiError)
     } else {
       registerAction
         .runAsync({
@@ -80,11 +75,11 @@ const Login: FC = () => {
           message.success("注册成功")
           setFormType("login")
         })
-        .catch((err: Error) => {
-          message.error(err.message)
-        })
+        .catch(catchApiError)
     }
   }
+
+  useHideTopBar()
 
   return (
     <div className={styles.login}>
@@ -102,7 +97,7 @@ const Login: FC = () => {
           rules={[{ required: true, message: "请输入用户名!" }]}>
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username"
+            placeholder="用户名"
           />
         </Form.Item>
 
@@ -112,7 +107,7 @@ const Login: FC = () => {
           <Input
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
-            placeholder="Password"
+            placeholder="密码"
           />
         </Form.Item>
 
@@ -122,7 +117,7 @@ const Login: FC = () => {
             rules={[{ required: true, message: "请输入激活码!" }]}>
             <Input
               prefix={<GlobalOutlined className="site-form-item-icon" />}
-              placeholder="ActiveCode"
+              placeholder="激活码"
             />
           </Form.Item>
         )}

@@ -4,19 +4,18 @@ import { FC } from "react"
 import { useNavigate } from "react-router-dom"
 import styles from "./index.module.scss"
 import { ExclamationCircleOutlined } from "@ant-design/icons"
+import useUserInfo from "@/hooks/useUserInfo"
 
 const { Title } = Typography
 
 const User: FC = () => {
   const navigate = useNavigate()
   const {
-    userInfo: { avatar, username },
+    userInfo: { avatar, username, callCount },
     setToken,
-    setUserInfo,
-    callCount,
-    setCallCount,
   } = useStore()
 
+  const { refreshUserInfo } = useUserInfo()
   return (
     <main className={styles.user__wrapper}>
       {avatar ? (
@@ -54,8 +53,8 @@ const User: FC = () => {
           <Button
             type="primary"
             onClick={() => {
-              setUserInfo({ username: null, avatar: null })
               setToken(null)
+              refreshUserInfo()
               navigate("/login")
             }}>
             退出账号

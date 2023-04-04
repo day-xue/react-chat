@@ -31,10 +31,7 @@ export const loginApi = (payload: { username: string; password: string }) => {
   return fetchApi<
     typeof payload,
     {
-      username: string
       token: string
-      avatar: string
-      callCount: number
     }
   >({
     url: "/login",
@@ -58,4 +55,24 @@ export const registerApi = (payload: {
     },
   })
 }
+
+export const userInfoApi = () => {
+  return fetchApi<
+    undefined,
+    {
+      userInfo?: {
+        username?: string
+        callCount: number
+        avatar?: string
+      }
+    }
+  >({
+    url: "/userInfo",
+    method: "GET",
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+}
+
 export * from "axios"

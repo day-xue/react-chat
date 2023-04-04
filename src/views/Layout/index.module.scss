@@ -1,9 +1,3 @@
-@media screen and (min-width: 600px) {
-  .layout {
-    max-width: 600px;
-  }
-}
-
 .layout {
   height: 100vh;
   padding: 0;
@@ -21,11 +15,23 @@
       width: 100%;
       //overflow: auto;
     }
+    .isLogin__check {
+      display: none;
+      &:checked + .tabs {
+        height: 0px;
+      }
+    }
     .tabs {
       position: sticky;
+      background-color: rgba(128, 128, 128, 0.1);
       top: 0;
+      content-visibility: auto;
+      transition: height 0.2s ease;
+      height: 40px;
+
       .ant-tabs-nav {
-        margin: 0px;
+        margin: 0;
+        padding-left: 8px;
       }
       .tab__extra {
         padding-left: 15px;

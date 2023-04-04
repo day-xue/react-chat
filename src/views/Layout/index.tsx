@@ -6,7 +6,7 @@ import styles from "./index.module.scss"
 const Layout: FC = () => {
   const navigate = useNavigate()
   useEffect(() => {
-    navigate("/user")
+    if (location.pathname === "/") navigate("/user")
   }, [])
   return (
     <main className={styles.layout}>
