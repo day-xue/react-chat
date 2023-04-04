@@ -1,7 +1,7 @@
 import { fetchChat, type AxiosProgressEvent } from "@/api"
 import { useStore } from "@/store"
 import { catchApiError } from "@/utils/catchApiError"
-import { Input, message } from "antd"
+import { Input } from "antd"
 import { nanoid } from "nanoid"
 import { memo, useEffect, useRef, useState, type FC } from "react"
 import { flushSync } from "react-dom"
@@ -31,8 +31,8 @@ const TextSend: FC = () => {
     setChat,
     currentChatId,
     updateCurrentChatIdAnswer,
-    callCount,
-    setCallCount,
+    userInfo,
+    setUserInfo,
   } = useStore()
   const [loading, setLoading] = useState(false)
   const oldChat = useRef<{ [currentId: string]: ResChunkType }>({})
@@ -57,10 +57,6 @@ const TextSend: FC = () => {
   const handleSearch = () => {
     if (!question.trim()) return catchApiError(new Error("请输入问题"))
     setLoading(true)
-    if (callCount <= 0) {
-      message.error("剩余问答次数不足，请联系管理员")
-      return
-    }
     flushSync(() => {
       setChat(currentChatId, {
         id: nanoid(),
@@ -79,7 +75,10 @@ const TextSend: FC = () => {
       chatId: currentChatId,
     })
       .then(() => {
-        setCallCount(callCount - 1)
+        setUserInfo({
+          ...userInfo,
+          callCount: (userInfo.callCount as number) - 1,
+        })
       })
       .catch(catchApiError)
       .finally(() => {

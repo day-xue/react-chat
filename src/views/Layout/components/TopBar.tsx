@@ -68,7 +68,7 @@ const ExtraAvatar: FC = () => {
 const TopBar: FC = () => {
   const { setCurrentChatId, chatMapKeys, setChatMapKeys } =
     useStore(topBarStoreSelector)
-  const [activeKey, setActiveKey] = useState("_chat_default")
+  const [activeKey, setActiveKey] = useState("")
   const navigate = useNavigate()
 
   const handleAdd = () => {
