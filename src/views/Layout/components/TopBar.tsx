@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useStore, StoreType } from "@/store"
+import { useStore } from "@/store"
+import { StoreType } from "@/store/types"
 import { Avatar, Tabs, Popover } from "antd"
 import { nanoid } from "nanoid"
 import { FC, useState } from "react"

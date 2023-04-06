@@ -1,6 +1,5 @@
 import OmsSyntaxHighlight from "@/components/OmsSyntaxHighlight"
-import { FC, memo } from "react"
-
+import { memo, type FC } from "react"
 type ChatItemProps = {
   textContent: string
 }

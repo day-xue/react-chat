@@ -1,6 +1,7 @@
 import axios, {
   type AxiosInstance,
   type AxiosInterceptorManager,
+  type AxiosInterceptorOptions,
   type AxiosResponse,
   type CreateAxiosDefaults,
   type InternalAxiosRequestConfig,
@@ -12,16 +13,22 @@ export class Instance {
     this.instance = axios.create(options)
   }
   setInterceptorsReq = (
-    useCB: Parameters<
+    onFulfilled: Parameters<
       AxiosInterceptorManager<InternalAxiosRequestConfig>["use"]
-    >[0]
+    >[0],
+    onRejected?: Parameters<
+      AxiosInterceptorManager<InternalAxiosRequestConfig>["use"]
+    >[1],
+    options?: AxiosInterceptorOptions
   ) => {
-    this.instance.interceptors.request.use(useCB)
+    this.instance.interceptors.request.use(onFulfilled, onRejected, options)
   }
   setInterceptorsRes = (
-    useCB: Parameters<AxiosInterceptorManager<AxiosResponse>["use"]>[0]
+    onFulfilled: Parameters<AxiosInterceptorManager<AxiosResponse>["use"]>[0],
+    onRejected?: Parameters<AxiosInterceptorManager<AxiosResponse>["use"]>[1],
+    options?: AxiosInterceptorOptions
   ) => {
-    this.instance.interceptors.response.use(useCB)
+    this.instance.interceptors.response.use(onFulfilled, onRejected, options)
   }
   getInstance = () => {
     return this.instance
